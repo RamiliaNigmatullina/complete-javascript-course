@@ -1,8 +1,8 @@
 'use strict';
 
 let activePlayerIndex;
+let currentScore;
 let scores = {};
-let currentScores = {};
 
 const maxScore = 100;
 const maxNumber = 6;
@@ -25,7 +25,7 @@ const displayScore = activePlayerIndex =>
     scores[activePlayerIndex]);
 const displayCurrentScore = activePlayerIndex =>
   (document.querySelector(`#current--${activePlayerIndex}`).textContent =
-    currentScores[activePlayerIndex]);
+    currentScore);
 
 const displayDice = function (number) {
   diceImg.style.display = 'block';
@@ -57,12 +57,12 @@ const reset = () => {
 
   for (let i = 0; i < players.length; i++) {
     scores[i] = 0;
-    currentScores[i] = 0;
 
     displayScore(i);
   }
 
   activePlayerIndex = 0;
+  currentScore = 0;
 
   diceImg.style.display = 'none';
 
@@ -90,22 +90,22 @@ const handleRollDice = () => {
     return;
   }
 
-  currentScores[activePlayerIndex] += number;
+  currentScore += number;
   displayCurrentScore(activePlayerIndex);
 };
 
 const handleHold = isSaveCurrentScore => {
-  if (isSaveCurrentScore && currentScores[activePlayerIndex] === 0) return;
+  if (isSaveCurrentScore && currentScore === 0) return;
 
   // Add current score to active player's score
   if (isSaveCurrentScore) {
-    scores[activePlayerIndex] += currentScores[activePlayerIndex];
+    scores[activePlayerIndex] += currentScore;
 
     displayScore(activePlayerIndex);
   }
 
   // Reset current score
-  currentScores[activePlayerIndex] = 0;
+  currentScore = 0;
 
   displayCurrentScore(activePlayerIndex);
 
