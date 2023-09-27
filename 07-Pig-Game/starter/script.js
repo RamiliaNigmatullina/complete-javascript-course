@@ -1,13 +1,11 @@
 'use strict';
 
-let activePlayerIndex;
-let currentScore;
-let playing;
-let scores = {};
+let activePlayerIndex, currentScore, playing;
 
 const maxScore = 100;
 const maxDice = 6;
 
+const scores = {};
 const classes = {
   active: 'player--active',
   winner: 'player--winner',
