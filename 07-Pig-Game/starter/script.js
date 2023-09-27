@@ -5,7 +5,7 @@ let currentScore;
 let playing;
 let scores = {};
 
-const maxScore = 10;
+const maxScore = 100;
 const maxNumber = 6;
 
 const classes = {
@@ -21,10 +21,10 @@ const newGameBtn = document.querySelector('.btn--new');
 const rollBtn = document.querySelector('.btn--roll');
 const holdBtn = document.querySelector('.btn--hold');
 
-const displayScore = activePlayerIndex =>
-  (document.querySelector(`#score--${activePlayerIndex}`).textContent =
-    scores[activePlayerIndex]);
-const displayCurrentScore = activePlayerIndex =>
+const displayScore = (playerIndex = activePlayerIndex) =>
+  (document.querySelector(`#score--${playerIndex}`).textContent =
+    scores[playerIndex]);
+const displayCurrentScore = () =>
   (document.querySelector(`#current--${activePlayerIndex}`).textContent =
     currentScore);
 
@@ -77,34 +77,34 @@ const showActivePlayer = () => {
 const handleRollDice = () => {
   if (!playing) return;
 
-  const number = randomNumber();
+  // Generate a random dice roll
+  const dice = randomNumber();
 
-  showDice(number);
+  showDice(dice);
 
-  if (number === 1) {
-    handleHold(false);
-
-    return;
+  // Check for rolled 1
+  if (dice === 1) {
+    switchPlayer(false);
+  } else {
+    currentScore += dice;
+    displayCurrentScore();
   }
-
-  currentScore += number;
-  displayCurrentScore(activePlayerIndex);
 };
 
-const handleHold = isSaveCurrentScore => {
+const switchPlayer = isSaveCurrentScore => {
   if (!playing || (isSaveCurrentScore && currentScore === 0)) return;
 
   // Add current score to active player's score
   if (isSaveCurrentScore) {
     scores[activePlayerIndex] += currentScore;
 
-    displayScore(activePlayerIndex);
+    displayScore();
   }
 
   // Reset current score
   currentScore = 0;
 
-  displayCurrentScore(activePlayerIndex);
+  displayCurrentScore();
 
   // Check if player's score is >= 100
   if (isSaveCurrentScore && scores[activePlayerIndex] >= maxScore) {
@@ -120,7 +120,7 @@ const handleHold = isSaveCurrentScore => {
 };
 
 rollBtn.addEventListener('click', handleRollDice);
-holdBtn.addEventListener('click', handleHold.bind(this, true));
+holdBtn.addEventListener('click', switchPlayer.bind(this, true));
 newGameBtn.addEventListener('click', reset);
 
 reset();
