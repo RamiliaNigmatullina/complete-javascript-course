@@ -35,13 +35,11 @@ const showDice = function (number) {
 };
 
 const randomDice = () => Math.trunc(Math.random() * maxDice) + 1;
-const nextPlayerIndex = () => (activePlayerIndex + 1) % players.length;
+const nextPlayerIndex = () =>
+  playing ? (activePlayerIndex + 1) % players.length : null;
 
 const reset = () => {
   playing = true;
-
-  if (activePlayerIndex)
-    players[activePlayerIndex].classList.remove(classes.winner);
 
   activePlayerIndex = 0;
   currentScore = 0;
@@ -51,7 +49,11 @@ const reset = () => {
 
     displayScore(i);
     displayCurrentScore(i);
+
+    players[i].classList.remove(classes.winner);
   }
+
+  diceImg.classList.add('hidden');
 
   showActivePlayer();
 };
@@ -107,12 +109,10 @@ const switchPlayer = isSaveCurrentScore => {
 
   displayCurrentScore();
 
-  if (playing) {
-    // Switch to the next player
-    activePlayerIndex = nextPlayerIndex();
+  // Switch to the next player
+  activePlayerIndex = nextPlayerIndex();
 
-    showActivePlayer();
-  }
+  showActivePlayer();
 };
 
 rollBtn.addEventListener('click', handleRollDice);
