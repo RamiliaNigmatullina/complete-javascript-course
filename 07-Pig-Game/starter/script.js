@@ -6,7 +6,7 @@ let playing;
 let scores = {};
 
 const maxScore = 100;
-const maxNumber = 6;
+const maxDice = 6;
 
 const classes = {
   active: 'player--active',
@@ -24,8 +24,8 @@ const holdBtn = document.querySelector('.btn--hold');
 const displayScore = (playerIndex = activePlayerIndex) =>
   (document.querySelector(`#score--${playerIndex}`).textContent =
     scores[playerIndex]);
-const displayCurrentScore = () =>
-  (document.querySelector(`#current--${activePlayerIndex}`).textContent =
+const displayCurrentScore = (playerIndex = activePlayerIndex) =>
+  (document.querySelector(`#current--${playerIndex}`).textContent =
     currentScore);
 
 const showDice = function (number) {
@@ -34,32 +34,24 @@ const showDice = function (number) {
   diceImg.src = `./dice-${number}.png`;
 };
 
-const randomNumber = () => Math.trunc(Math.random() * maxNumber) + 1;
+const randomDice = () => Math.trunc(Math.random() * maxDice) + 1;
 const nextPlayerIndex = () => (activePlayerIndex + 1) % players.length;
 
-const showWinner = isSet => {
-  if (typeof activePlayerIndex === 'undefined') return;
-
-  playing = false;
-
-  const classList = players[activePlayerIndex].classList;
-  isSet ? classList.add(classes.winner) : classList.remove(classes.winner);
-
-  diceImg.classList.add('hidden');
-};
-
 const reset = () => {
-  showWinner(false);
+  playing = true;
+
+  if (activePlayerIndex)
+    players[activePlayerIndex].classList.remove(classes.winner);
+
+  activePlayerIndex = 0;
+  currentScore = 0;
 
   for (let i = 0; i < players.length; i++) {
     scores[i] = 0;
 
     displayScore(i);
+    displayCurrentScore(i);
   }
-
-  activePlayerIndex = 0;
-  currentScore = 0;
-  playing = true;
 
   showActivePlayer();
 };
@@ -78,7 +70,7 @@ const handleRollDice = () => {
   if (!playing) return;
 
   // Generate a random dice roll
-  const dice = randomNumber();
+  const dice = randomDice();
 
   showDice(dice);
 
@@ -102,7 +94,11 @@ const switchPlayer = isSaveCurrentScore => {
 
     // Check if player's score is >= 100
     if (scores[activePlayerIndex] >= maxScore) {
-      showWinner(true);
+      playing = false;
+
+      players[activePlayerIndex].classList.add(classes.winner);
+
+      diceImg.classList.add('hidden');
     }
   }
 
