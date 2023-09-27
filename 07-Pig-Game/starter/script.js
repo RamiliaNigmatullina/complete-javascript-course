@@ -4,7 +4,7 @@ let activePlayerIndex;
 let currentScore;
 let scores = {};
 
-const maxScore = 100;
+const maxScore = 10;
 const maxNumber = 6;
 
 const classes = {
@@ -27,8 +27,8 @@ const displayCurrentScore = activePlayerIndex =>
   (document.querySelector(`#current--${activePlayerIndex}`).textContent =
     currentScore);
 
-const displayDice = function (number) {
-  diceImg.style.display = 'block';
+const showDice = function (number) {
+  diceImg.classList.remove('hidden');
 
   diceImg.src = `./dice-${number}.png`;
 };
@@ -42,7 +42,7 @@ const setWinner = isSet => {
   const classList = players[activePlayerIndex].classList;
   isSet ? classList.add(classes.winner) : classList.remove(classes.winner);
 
-  // players[activePlayerIndex].classList.toggle(classes.winner);
+  diceImg.classList.add('hidden');
 
   disableButtons(isSet);
 };
@@ -64,8 +64,6 @@ const reset = () => {
   activePlayerIndex = 0;
   currentScore = 0;
 
-  diceImg.style.display = 'none';
-
   showActivePlayer();
 };
 
@@ -82,7 +80,7 @@ const showActivePlayer = () => {
 const handleRollDice = () => {
   const number = randomNumber();
 
-  displayDice(number);
+  showDice(number);
 
   if (number === 1) {
     handleHold(false);
