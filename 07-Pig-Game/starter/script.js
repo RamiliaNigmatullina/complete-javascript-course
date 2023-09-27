@@ -37,7 +37,7 @@ const showDice = function (number) {
 const randomNumber = () => Math.trunc(Math.random() * maxNumber) + 1;
 const nextPlayerIndex = () => (activePlayerIndex + 1) % players.length;
 
-const setWinner = isSet => {
+const showWinner = isSet => {
   if (typeof activePlayerIndex === 'undefined') return;
 
   playing = false;
@@ -49,7 +49,7 @@ const setWinner = isSet => {
 };
 
 const reset = () => {
-  setWinner(false);
+  showWinner(false);
 
   for (let i = 0; i < players.length; i++) {
     scores[i] = 0;
@@ -99,6 +99,11 @@ const switchPlayer = isSaveCurrentScore => {
     scores[activePlayerIndex] += currentScore;
 
     displayScore();
+
+    // Check if player's score is >= 100
+    if (scores[activePlayerIndex] >= maxScore) {
+      showWinner(true);
+    }
   }
 
   // Reset current score
@@ -106,17 +111,12 @@ const switchPlayer = isSaveCurrentScore => {
 
   displayCurrentScore();
 
-  // Check if player's score is >= 100
-  if (isSaveCurrentScore && scores[activePlayerIndex] >= maxScore) {
-    setWinner(true);
+  if (playing) {
+    // Switch to the next player
+    activePlayerIndex = nextPlayerIndex();
 
-    return;
+    showActivePlayer();
   }
-
-  // Switch to the next player
-  activePlayerIndex = nextPlayerIndex();
-
-  showActivePlayer();
 };
 
 rollBtn.addEventListener('click', handleRollDice);
