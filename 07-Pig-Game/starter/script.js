@@ -78,20 +78,19 @@ const handleRollDice = () => {
 
   // Check for rolled 1
   if (dice === 1) {
-    switchPlayer(false);
+    switchPlayer();
   } else {
     currentScore += dice;
     displayCurrentScore();
   }
 };
 
-const switchPlayer = isSaveCurrentScore => {
+const switchPlayer = (isSaveCurrentScore = false) => {
   if (!playing || (isSaveCurrentScore && currentScore === 0)) return;
 
   // Add current score to active player's score
   if (isSaveCurrentScore) {
     scores[activePlayerIndex] += currentScore;
-
     displayScore();
 
     // Check if player's score is >= 100
@@ -106,12 +105,10 @@ const switchPlayer = isSaveCurrentScore => {
 
   // Reset current score
   currentScore = 0;
-
   displayCurrentScore();
 
   // Switch to the next player
   activePlayerIndex = nextPlayerIndex();
-
   showActivePlayer();
 };
 
