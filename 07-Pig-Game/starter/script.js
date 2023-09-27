@@ -2,6 +2,7 @@
 
 let activePlayerIndex;
 let currentScore;
+let playing;
 let scores = {};
 
 const maxScore = 10;
@@ -39,17 +40,12 @@ const nextPlayerIndex = () => (activePlayerIndex + 1) % players.length;
 const setWinner = isSet => {
   if (typeof activePlayerIndex === 'undefined') return;
 
+  playing = false;
+
   const classList = players[activePlayerIndex].classList;
   isSet ? classList.add(classes.winner) : classList.remove(classes.winner);
 
   diceImg.classList.add('hidden');
-
-  disableButtons(isSet);
-};
-
-const disableButtons = isDisabled => {
-  rollBtn.disabled = isDisabled;
-  holdBtn.disabled = isDisabled;
 };
 
 const reset = () => {
@@ -63,6 +59,7 @@ const reset = () => {
 
   activePlayerIndex = 0;
   currentScore = 0;
+  playing = true;
 
   showActivePlayer();
 };
@@ -78,6 +75,8 @@ const showActivePlayer = () => {
 };
 
 const handleRollDice = () => {
+  if (!playing) return;
+
   const number = randomNumber();
 
   showDice(number);
@@ -93,7 +92,7 @@ const handleRollDice = () => {
 };
 
 const handleHold = isSaveCurrentScore => {
-  if (isSaveCurrentScore && currentScore === 0) return;
+  if (!playing || (isSaveCurrentScore && currentScore === 0)) return;
 
   // Add current score to active player's score
   if (isSaveCurrentScore) {
