@@ -85,11 +85,11 @@ const handleRollDice = () => {
   }
 };
 
-const switchPlayer = (isSaveCurrentScore = false) => {
-  if (!playing || (isSaveCurrentScore && currentScore === 0)) return;
+const switchPlayer = (updateScore = false) => {
+  if (!playing || (updateScore && currentScore === 0)) return;
 
-  // Add current score to active player's score
-  if (isSaveCurrentScore) {
+  if (updateScore) {
+    // Add current score to active player's score
     scores[activePlayerIndex] += currentScore;
     displayScore();
 
@@ -98,7 +98,6 @@ const switchPlayer = (isSaveCurrentScore = false) => {
       playing = false;
 
       players[activePlayerIndex].classList.add(classes.winner);
-
       diceImg.classList.add('hidden');
     }
   }
