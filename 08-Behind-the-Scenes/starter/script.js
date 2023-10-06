@@ -110,46 +110,121 @@
 //
 // // 97. The this keyword in Practice
 
-// 1
-console.log(this);
+// // 1
+// console.log(this);
 
-// 2
-const calcAge = function (birthYear) {
-  console.log(2037 - birthYear);
-  console.log(this);
-};
+// // 2
+// const calcAge = function (birthYear) {
+//   console.log(2037 - birthYear);
+//   console.log(this);
+// };
 
-calcAge(1991);
+// calcAge(1991);
 
-// 3
-const calcAgeArrow = birthYear => {
-  console.log(2037 - birthYear);
-  console.log(this);
-};
+// // 3
+// const calcAgeArrow = birthYear => {
+//   console.log(2037 - birthYear);
+//   console.log(this);
+// };
 
-calcAgeArrow(1991);
+// calcAgeArrow(1991);
 
-// 4
-const jonas = {
-  year: 1991,
-  calcAge: function () {
-    console.log(this);
-    console.log(2037 - this.year);
-  },
-};
+// // 4
+// const jonas = {
+//   year: 1991,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2037 - this.year);
+//   },
+// };
 
-jonas.calcAge();
+// jonas.calcAge();
 
-// 5
-const matilda = {
-  year: 2017,
-};
-matilda.calcAge = jonas.calcAge;
+// // 5
+// const matilda = {
+//   year: 2017,
+// };
+// matilda.calcAge = jonas.calcAge;
 
-console.log(matilda);
+// console.log(matilda);
 
-matilda.calcAge();
+// matilda.calcAge();
 
-// 6
-const f = jonas.calcAge; // coping
-f(); // Uncaught TypeError: Cannot read property 'year' of undefined
+// // 6
+// const f = jonas.calcAge; // coping
+// f(); // Uncaught TypeError: Cannot read property 'year' of undefined
+
+//
+//
+//
+// 98. Regular Functions VS Arrow Functions
+
+// // 1
+// const jonas = {
+//   firstName: 'Jonas',
+//   year: 1991,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2037 - this.year);
+//   },
+//   greet: () => console.log(`Hey ${this.firstName}`),
+// };
+
+// jonas.greet(); // => Hey undefined
+
+// // 2
+// var firstName = 'Matilda';
+
+// const jonas = {
+//   firstName: 'Jonas',
+//   year: 1991,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2037 - this.year);
+//   },
+//   greet: () => {
+//     console.log(this);
+//     console.log(`Hey ${this.firstName}`);
+//   },
+//   greetFunc: function () {
+//     console.log(this);
+//     console.log(`Hey ${this.firstName}`);
+//   },
+// };
+
+// jonas.greet(); // => Hey Matilda
+// jonas.greetFunc(); // => Hey Jonas
+
+// // 3 Pre ES6 solution using self
+// const jonas = {
+//   year: 1991,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2037 - this.year);
+
+//     const self = this; // self ot that –> pre ES6 solution
+//     const isMillenial = function () {
+//       console.log(self);
+//       console.log(self.year >= 1981 && self.year <= 1996);
+//     };
+//     isMillenial();
+//   },
+// };
+
+// jonas.calcAge();
+
+// // 4 Modern ES6 solution using arrow function
+// const jonas2 = {
+//   year: 1991,
+//   calcAge: function () {
+//     console.log(2037 - this.year);
+
+//     const isMillenial = () => {
+//       console.log(this);
+//       console.log(this.year >= 1981 && this.year <= 1996);
+//     };
+//     isMillenial();
+//   },
+// };
+
+// jonas2.calcAge();
