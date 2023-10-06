@@ -89,18 +89,67 @@
 
 // WHY USING VAR IS SO DANGEROUS (EXAMPLE)
 
-if (!numProducts) deleteShoppingCart();
+// if (!numProducts) deleteShoppingCart();
 
-var numProducts = 10;
+// var numProducts = 10;
 
-function deleteShoppingCart() {
-  console.log('All products have been deleted!');
-}
+// function deleteShoppingCart() {
+//   console.log('All products have been deleted!');
+// }
 
-var x = 1;
-let y = 2;
-const z = 3;
+// var x = 1;
+// let y = 2;
+// const z = 3;
 
-console.log(x === window.x); // true
-console.log(y === window.y); // false
-console.log(z === window.z); // false
+// console.log(x === window.x); // true
+// console.log(y === window.y); // false
+// console.log(z === window.z); // false
+
+//
+//
+//
+// // 97. The this keyword in Practice
+
+// 1
+console.log(this);
+
+// 2
+const calcAge = function (birthYear) {
+  console.log(2037 - birthYear);
+  console.log(this);
+};
+
+calcAge(1991);
+
+// 3
+const calcAgeArrow = birthYear => {
+  console.log(2037 - birthYear);
+  console.log(this);
+};
+
+calcAgeArrow(1991);
+
+// 4
+const jonas = {
+  year: 1991,
+  calcAge: function () {
+    console.log(this);
+    console.log(2037 - this.year);
+  },
+};
+
+jonas.calcAge();
+
+// 5
+const matilda = {
+  year: 2017,
+};
+matilda.calcAge = jonas.calcAge;
+
+console.log(matilda);
+
+matilda.calcAge();
+
+// 6
+const f = jonas.calcAge; // coping
+f(); // Uncaught TypeError: Cannot read property 'year' of undefined
