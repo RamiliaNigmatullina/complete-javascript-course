@@ -1,8 +1,8 @@
 'use strict';
 
 // Data needed for a later exercise
-const flights =
-  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+// const flights =
+//   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 // Data needed for first part of the section
 const restaurant = {
@@ -414,6 +414,7 @@ rest.set(document.querySelector('h1'), 'Heading');
 console.log(rest.get(document.querySelector('h1')));
 */
 
+/*
 /////////////////////////////////////////////////
 // 118. Maps: Iteration
 const question = new Map([
@@ -443,3 +444,188 @@ console.log([...question]);
 console.log(question.entries());
 console.log([...question.keys()]);
 console.log([...question.values()]);
+*/
+
+/*
+/////////////////////////////////////////////////
+// 121. Working With Strings - Part 1
+const airline = 'TAP Air Portugal';
+const plane = 'A320';
+
+console.log(plane[0]); // A
+console.log('B737'[0]); // B
+
+console.log(airline.length); // 16
+console.log(airline.indexOf('r')); // 6
+console.log(airline.lastIndexOf('r')); // 10
+console.log(airline.indexOf('Portugal')); // 8
+console.log(airline.indexOf('portugal')); // -1
+
+console.log(airline.slice(4)); // Air Portugal
+console.log(airline.slice(4, 7)); // Air (the 4th symbol is included, the 7th is NOT)
+
+console.log(airline.slice(0, airline.indexOf(' '))); // AIR
+console.log(airline.lastIndexOf(' ') + 1); // Portugal
+
+console.log(airline.slice(-2)); // al
+
+const checkMiddleSeat = function (seat) {
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') console.log('Middle :(');
+  else console.log('You got lucky!');
+};
+
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('3E');
+
+console.log(new String('jonas')); // returns an array
+
+console.log(typeof new String('jonas')); // object
+console.log(typeof new String('jonas').slice(1)); // string
+*/
+
+/*
+/////////////////////////////////////////////////
+// 122. Working With Strings - Part 2
+const airline = 'TAP Air Portugal';
+
+console.log(airline.toLowerCase()); // tap air portugal
+console.log(airline.toUpperCase()); // TAP AIR PORTUGAL
+
+// Fix capitalization in name
+const passenger = 'jOnAS';
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect);
+
+// Comparing emails
+const email = 'hello@jonas.io';
+const loginEmail = '    Hello@Jonas.Io \n';
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim();
+console.log(trimmedEmail);
+
+// replacing
+const priceGB = '288,97£';
+const priceUS = priceGB.replace('£', '$').replace(',', '.');
+const announcement =
+  'All passengers come to boarding door 23. Boarding door 23!';
+console.log(announcement.replace('door', 'gate'));
+console.log(announcement.replaceAll('door', 'gate'));
+console.log(announcement.replace(/door/g, 'gate')); // g - global
+
+// Booleans
+const plane = 'A320neo';
+console.log(plane.includes('A320')); // true
+console.log(plane.includes('Boeing')); // false
+console.log(plane.startsWith('Air'));
+console.log(plane.endsWith('neo'));
+
+// Practice exercide
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+
+  if (baggage.includes('knife') || baggage.includes('gun')) {
+    console.log('You are NOT allowed on board');
+  } else {
+    console.log('Welcome abroad!');
+  }
+};
+
+checkBaggage('I have a laptop, some Food and a pocket knife');
+checkBaggage('Socks and camera');
+checkBaggage('Got so,e snacks amd a gun for prtection');
+*/
+
+/*
+/////////////////////////////////////////////////
+// 122. Working With Strings - Part 2
+
+// Split and join
+console.log('a+very+nice+string'.split('+')); // (4) ["a", "very", "nice", "string"]
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+console.log(['Mr.', firstName, lastName.toUpperCase()].join(' '));
+
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+
+  for (const n of names) {
+    // namesUpper.push(n[0].toUpperCase() + n.slice(1));
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+
+  console.log(namesUpper.join(' '));
+};
+
+capitalizeName('jessica ann smith davis');
+capitalizeName('jonas schmedtmann');
+
+// Padding
+const message = 'Go to gate 23!';
+console.log(message.padStart(20, '+')); // ++++++Go to gate 23!
+console.log(message.padStart(17, '+').padEnd(23, '+')); // +++Go to gate 23!++++++
+
+const maskCreditCard = function (number) {
+  const str = number + '';
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+console.log(maskCreditCard(64637836)); // ****7836
+console.log(maskCreditCard(3378463864647384)); // ************7384
+console.log(maskCreditCard('334859493847755774747')); // *****************4747
+
+// Repeat
+const message2 = 'Bad weather... All Departues Delayed...';
+message2.repeat(5);
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'✈️'.repeat(n)}`);
+};
+planesInLine(3);
+planesInLine(5);
+*/
+
+///////////////////////////////////////
+// 125. String Methods Practice
+
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+// 🔴 Delayed Departure from FAO to TXL (11h25)
+//              Arrival from BRU to FAO (11h45)
+//   🔴 Delayed Arrival from HEL to FAO (12h05)
+//            Departure from FAO to LIS (12h30)
+
+const formattedType = str =>
+  (str.includes('Delayed') ? '🔴 ' : '') + str.replaceAll('_', ' ').trim();
+
+const formattedAirport = str => str.replace(/[^a-zA-Z]+/g, '').toUpperCase();
+
+const formattedTime = str => `(${str.replace(':', 'h')})`;
+
+const formattedFlights = [];
+let maxLength = 0;
+
+for (const flight of flights.split('+')) {
+  const [type, from, to, time] = flight.split(';');
+
+  let formattedFlight =
+    formattedType(type) +
+    ' from ' +
+    formattedAirport(from) +
+    ' to ' +
+    formattedAirport(to) +
+    ' ' +
+    formattedTime(time);
+
+  const length = formattedFlight.length;
+  if (length > maxLength) maxLength = length;
+
+  formattedFlights.push(formattedFlight);
+}
+
+for (const flight of formattedFlights)
+  console.log(flight.padStart(maxLength, ' '));
