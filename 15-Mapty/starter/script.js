@@ -6,6 +6,7 @@ class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
   clicks = 0;
+  layer;
 
   constructor(coords, distance, duration) {
     // this.date = ...
@@ -95,7 +96,9 @@ class App {
     form.addEventListener('submit', this._newWorkout.bind(this));
 
     inputType.addEventListener('change', this._toggleElevationField);
+
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+    containerWorkouts.addEventListener('click', this._deleteWorkout.bind(this));
   }
 
   _getPosition() {
@@ -222,7 +225,7 @@ class App {
   }
 
   _renderWorkoutMarker(workout) {
-    L.marker(workout.coords)
+    workout.layer = L.marker(workout.coords)
       .addTo(this.#map)
       .bindPopup(
         L.popup({
@@ -243,6 +246,7 @@ class App {
     let html = `
       <li class="workout workout--${workout.type}" data-id="${workout.id}">
         <h2 class="workout__title">${workout.description}</h2>
+        <button type="button" class="workout__close">x</button>
         <div class="workout__details">
           <span class="workout__icon">${
             workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'
@@ -295,6 +299,7 @@ class App {
     // console.log(workoutEl);
 
     if (!workoutEl) return;
+    if (e.target.classList.contains('workout__close')) return;
 
     const workout = this.#workouts.find(
       work => work.id === workoutEl.dataset.id
@@ -314,7 +319,11 @@ class App {
 
   // Local storage is blocking (it's very bad)
   _setLocalStorage() {
-    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+    const replacer = (key, value) => {
+      if (key == 'layer') return undefined;
+      return value;
+    };
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts, replacer));
   }
 
   _getLocalStorage() {
@@ -328,6 +337,21 @@ class App {
     this.#workouts.forEach(work => {
       this._renderWorkout(work);
     });
+  }
+
+  _deleteWorkout(e) {
+    if (!e.target.classList.contains('workout__close')) return;
+
+    const workoutEl = e.target.closest('.workout');
+    const index = this.#workouts.findIndex(
+      work => work.id === workoutEl.dataset.id
+    );
+    const workout = this.#workouts.splice(index, 1)[0];
+
+    workoutEl.classList.add('form__row--hidden');
+    workout.layer.remove();
+
+    this._setLocalStorage();
   }
 
   reset() {
