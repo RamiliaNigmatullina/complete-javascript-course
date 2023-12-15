@@ -91,13 +91,12 @@ a:visited {
   grid-column: 1 / -1;
 }
 
-.workout__close {
+.workout__action {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 18px;
+  top: 13px;
+  font-size: 16px;
   border: 0;
-  padding: 5px 10px;
+  padding: 5px 7px;
   color: white;
   cursor: pointer;
   border-radius: 4px;
@@ -113,6 +112,14 @@ a:visited {
   &:disabled {
     cursor: not-allowed;
   }
+}
+
+.workout__action--edit {
+  right: 44px;
+}
+
+.workout__action--delete {
+  right: 10px;
 }
 
 .workout__details {
