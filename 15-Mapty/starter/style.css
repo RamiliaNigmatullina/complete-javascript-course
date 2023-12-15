@@ -66,6 +66,18 @@ a:visited {
   width: 0;
 }
 
+.workouts__delete-all-link:link,
+.workouts__delete-all-link:visited {
+  font-size: 1.5rem;
+  color: var(--color-light--2);
+  font-weight: 800;
+  padding-bottom: 2rem;
+}
+
+.hidden {
+  transform: translateY(-30rem);
+}
+
 .workout {
   position: relative;
   background-color: var(--color-dark--2);

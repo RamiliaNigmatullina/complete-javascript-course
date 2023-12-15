@@ -122,6 +122,9 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+const deleteAllWorkoutsLink = document.querySelector(
+  '.workouts__delete-all-link'
+);
 
 class App {
   #map;
@@ -146,6 +149,10 @@ class App {
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
     containerWorkouts.addEventListener('click', this._editWorkout.bind(this));
     containerWorkouts.addEventListener('click', this._deleteWorkout.bind(this));
+    deleteAllWorkoutsLink.addEventListener(
+      'click',
+      this._deleteAllWorkouts.bind(this)
+    );
   }
 
   _getPosition() {
@@ -350,7 +357,17 @@ class App {
     return html;
   }
 
+  _showDeleteAllWorkoutsLink(isShow = true) {
+    if (isShow) {
+      deleteAllWorkoutsLink.classList.remove('hidden');
+    } else {
+      deleteAllWorkoutsLink.classList.add('hidden');
+    }
+  }
+
   _renderWorkout(workout) {
+    this._showDeleteAllWorkoutsLink();
+
     const html = this._generateWorkoutHTML(workout);
 
     form.insertAdjacentHTML('afterend', html);
@@ -556,11 +573,19 @@ class App {
     workout.layer.remove();
 
     this._setLocalStorage();
+
+    if (this.#workouts.length === 0) this._showDeleteAllWorkoutsLink(false);
   }
 
   reset() {
     localStorage.removeItem('workouts');
     location.reload();
+  }
+
+  _deleteAllWorkouts(e) {
+    e.preventDefault();
+
+    this.reset();
   }
 }
 
