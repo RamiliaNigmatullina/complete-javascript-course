@@ -27,7 +27,6 @@ const wait = async function (seconds) {
 const createImage = function (imgPath) {
   return new Promise(function (resolve, reject) {
     const img = document.createElement('img');
-    img.classList.add('parallel');
     img.src = imgPath;
     // img.onerror = _ => reject(new Error('Wrong image path'));
 
@@ -46,31 +45,43 @@ let currentImg;
 
 const hideCurrentImg = () => (currentImg.style.display = 'none');
 
-// try {
-//   (async function () {
-//     let waitSec = 5;
+const loadNPause = async function () {
+  try {
+    let waitSec = 5;
 
-//     currentImg = await createImage('img/img-1.jpg');
-//     await wait(waitSec);
-//     hideCurrentImg();
-//     currentImg = await createImage('img/img-2.jpg');
-//     await wait(waitSec);
-//     hideCurrentImg();
-//     currentImg = await createImage('img/img-3.jpg');
-//     await wait(waitSec);
-//     hideCurrentImg();
-//   })();
-// } catch (err) {
-//   console.error(err);
-// }
+    currentImg = await createImage('img/img-1.jpg');
+    await wait(waitSec);
+    hideCurrentImg();
+
+    currentImg = await createImage('img/img-2.jpg');
+    await wait(waitSec);
+    hideCurrentImg();
+
+    currentImg = await createImage('img/img-3.jpg');
+    await wait(waitSec);
+    hideCurrentImg();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// loadNPause();
 
 // PART 2
 const loadAll = async function (imgArr) {
-  // const imgs = imgArr.map(img => createImage(img));
-  // console.log(imgs);
+  try {
+    // const imgs = imgArr.map(async img => await createImage(img));
+    // console.log(imgs);
 
-  const imgs = await Promise.all(imgArr.map(img => createImage(img)));
-  console.log(imgs);
+    const imgs = await Promise.all(
+      imgArr.map(async img => await createImage(img))
+    );
+    console.log(imgs);
+
+    imgs.forEach(img => img.classList.add('parallel'));
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 loadAll(['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']);

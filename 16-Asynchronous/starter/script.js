@@ -458,7 +458,7 @@ get3Countries('portugal', 'canada', 'tanzania');
 // Promise.race is very useful to prevent against never ending promises
 // or also very long running promises.
 
-// If a user has a very bad internet connection, then a fetch reques in your application
+// If a user has a very bad internet connection, then a fetch request in your application
 // might take way too long to actually be useful. And we can create a special time out promise,
 // which automatically rejects after a certain time has passed.
 
@@ -471,7 +471,7 @@ const timeout = function (sec) {
 };
 
 // If the timeout happens first, then all of this below will be rejected
-Promise.race([getJSON(`https://restcountries.com/v3.1/name/italy`)], timeout(2))
+Promise.race([getJSON(`https://restcountries.com/v3.1/name/italy`), timeout(2)])
   .then(res => console.log(res[0]))
   .catch(err => console.error(err));
 
