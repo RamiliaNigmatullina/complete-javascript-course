@@ -23,7 +23,7 @@
 // addToCart('bread', 5);
 // console.log(price, tq);
 
-/*
+
 console.log('Importing module');
 
 // // import everything:
@@ -40,7 +40,7 @@ add('bread', 5);
 add('apples', 4);
 
 console.log(cart);
-
+/*
 ///////////////////////////////////////
 // 274. Top-Level await (ES2022)
 // works in modules only:
