@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"7PB6p":[function(require,module,exports) {
+})({"j7aON":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "b0a9fe8b42263212";
+module.bundle.HMR_BUNDLE_ID = "1ad356c269bd1bb0";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -751,7 +751,7 @@ console.log(stateClone);
 console.log(stateDeepClone);
 if (module.hot) module.hot.accept();
 
-},{"./shoppingCart.js":"eWLX8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","lodash-es":"bXNwz"}],"eWLX8":[function(require,module,exports) {
+},{"./shoppingCart.js":"eWLX8","lodash-es":"bXNwz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eWLX8":[function(require,module,exports) {
 // Exporting module
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -23975,6 +23975,6 @@ var nativeMax = Math.max, nativeMin = Math.min;
 }
 exports.default = getView;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["7PB6p","mMh8q"], "mMh8q", "parcelRequireeb47")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["j7aON","mMh8q"], "mMh8q", "parcelRequireeb47")
 
-//# sourceMappingURL=index.42263212.js.map
+//# sourceMappingURL=index.69bd1bb0.js.map
