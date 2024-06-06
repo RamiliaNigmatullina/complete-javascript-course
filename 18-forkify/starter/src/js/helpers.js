@@ -1,4 +1,4 @@
-import { TIMEOUT_SEC } from './helpers.js';
+import { TIMEOUT_SEC } from './config.js';
 
 export const timeout = function (s) {
   return new Promise(function (_, reject) {
